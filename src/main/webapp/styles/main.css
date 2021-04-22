@@ -79,6 +79,7 @@ main, header h1 {
 .required, .error {
     font-style: italic;
     color: red;
+    margin: 5px 0;
 }
 .container h2 {
     margin: 0 0 20px;

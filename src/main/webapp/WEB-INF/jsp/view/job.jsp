@@ -76,56 +76,57 @@
                 </div>
                 <div class="applicationForm">
                     <h2>Apply for this job</h2>
-                    <form action="<c:url value="/application" />" method="POST">
-                        <input type="hidden" value="${job.id}">
+                    <form action="<c:url value="/applications" />" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="create">
+                        <input type="hidden" name="jobId" value="${job.id}">
                         <table>
                             <tr>
                                 <td><label for="firstName">First Name <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="text" name="firstName" id="firstName" value="">
-                                    <span class="error"></span>
+                                    <input type="text" name="firstName" id="firstName" value="${application.firstName}">
+                                    <p class="error">${application.firstNameError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="lastName">Last Name <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="text" name="lastName" id="lastName" value="">
-                                    <span class="error"></span>
+                                    <input type="text" name="lastName" id="lastName" value="${application.lastName}">
+                                    <p class="error">${application.lastNameError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="email">Email <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="text" name="email" id="email" value="">
-                                    <span class="error"></span>
+                                    <input type="text" name="email" id="email" value="${application.email}">
+                                    <p class="error">${application.emailError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="phone">Phone <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="text" name="phone" id="phone" value="">
-                                    <span class="error"></span>
+                                    <input type="text" name="phone" id="phone" value="${application.phone}">
+                                    <p class="error">${application.phoneError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="resume">Resume <span class="required">*</span></label></td>
                                 <td>
                                     <input type="file" name="resume" id="resume">
-                                    <span class="error"></span>
+                                    <p class="error">${application.resumeError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="salary">Desired Salary <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="number" name="salary" id="salary">
-                                    <span class="error"></span>
+                                    <input type="text" name="salary" id="salary" value="${application.desiredSalary}">
+                                    <p class="error">${application.salaryError}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="startDate">Earliest Start Date <span class="required">*</span></label></td>
                                 <td>
-                                    <input type="date" name="startDate" id="startDate">
-                                    <span class="error"></span>
+                                    <input type="date" name="startDate" id="startDate" value="${application.earliestStartDate}">
+                                    <p class="error">${application.startDateError}</p>
                                 </td>
                             </tr>
                             <tr>
