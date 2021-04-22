@@ -56,20 +56,22 @@ public class JobServlet extends HttpServlet {
                     lineCount++;
                     line = in.nextLine();
                     fields = line.split("\t");
-                    id = Integer.parseInt(fields[0]);
                     active = Boolean.parseBoolean(fields[1]);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    dateCreated = LocalDate.parse(fields[2], formatter);
-                    title = fields[3];
-                    city = fields[4];
-                    state = fields[5];
-                    fullTime = Boolean.parseBoolean(fields[6]);
-                    department = fields[7];
-                    experience = fields[8];
-                    wageCategory = fields[9];
-                    salary = Double.parseDouble(fields[10]);
-                    jobDescription = fields[11];
-                    jobs.add(new Job(id, active, dateCreated, title, city, state, fullTime, department, experience, wageCategory, salary, jobDescription));
+                    if(active) {
+                        id = Integer.parseInt(fields[0]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        dateCreated = LocalDate.parse(fields[2], formatter);
+                        title = fields[3];
+                        city = fields[4];
+                        state = fields[5];
+                        fullTime = Boolean.parseBoolean(fields[6]);
+                        department = fields[7];
+                        experience = fields[8];
+                        wageCategory = fields[9];
+                        salary = Double.parseDouble(fields[10]);
+                        jobDescription = fields[11];
+                        jobs.add(new Job(id, active, dateCreated, title, city, state, fullTime, department, experience, wageCategory, salary, jobDescription));
+                    }
                 }
             } catch(FileNotFoundException fnfe){
                 response.setContentType("text/html;charset=UTF-8");
@@ -106,6 +108,46 @@ public class JobServlet extends HttpServlet {
             return;
         } 
         
+        String id = request.getParameter("id");
+        if (id != null) {
+            showJob(request, response);
+        } else {
+            listJobs(request, response);
+        }
+    }
+    
+    private void showJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Job job = getJob(id);
+        if (job == null) {
+            response.sendRedirect("jobs");
+            return;
+        }
+        request.setAttribute("job", job);
+        request.getRequestDispatcher("/WEB-INF/jsp/view/job.jsp").forward(request, response);
+    }
+    
+    private Job getJob(String id) throws ServletException, IOException {
+        if (id == null || id.length() == 0) {
+            return null;
+        }
+        int idInt;
+        try {
+            idInt = Integer.parseInt(id);
+        } catch (Exception e) {
+            return null;
+        }
+        Job result = null;
+        for(Job job: jobs) {
+            if(job.getId() == idInt) {
+                result = job;
+                break;
+            }
+        }
+        return result;
+    }
+    
+    private void listJobs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;
         int itemsPerPage = 4;
         int begin = 0;

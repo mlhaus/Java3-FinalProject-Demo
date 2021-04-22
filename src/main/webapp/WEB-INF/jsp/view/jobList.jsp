@@ -9,7 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Medirevv - Career Page</title>
+        <link href="styles/normalize.css" rel="stylesheet">
+        <link href="styles/main.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -20,28 +22,35 @@
                     <li><a href="<c:url value="/login" />">Login</a></li>
                 </ul>
             </nav>
+            <h1>Medirevv</h1>
         </header>
-        <div class="container">
+        <main>
             <h2>Job Openings</h2>
             <div class="pagination">
                 <c:forEach var="i" begin="1" end="${maxPages}">
                     <a <c:if test="${currentPage == i}">class="active"</c:if> href="<c:url value="/jobs"><c:param name="page" value="${i}" /></c:url>">${i}</a>
                 </c:forEach>
             </div>
-            <div class="jobs">
+            <div class="container">
                 <c:forEach items="${jobs}" var="job" begin="${begin}" end="${end}">
                     <div class="job">
-                        <p>
-                            Title: <c:out value="${job.title}" /><br>
-                            Location: <c:out value="${job.city}" />, <c:out value="${job.state}" /><br>
-                            Department: <c:out value="${job.department}" />
-                        </p>
+                        <table>
+                            <tr>
+                                <td>Title:</td><td><a href="<c:url value="/jobs"><c:param name="id" value="${job.id}" /></c:url>"><c:out value="${job.title}" /></a></td>
+                            </tr>
+                            <tr>
+                                <td>Location:</td><td><c:out value="${job.city}" />, <c:out value="${job.state}" /></td>
+                            </tr>
+                            <tr>    
+                                <td>Department:</td><td><c:out value="${job.department}" /></td>
+                            </tr>
+                        </table>
                         <p>
                             <c:out value="${job.jobDescription}" />
                         </p>
                     </div>
                 </c:forEach>
             </div>
-        </div>
+        </main>
     </body>
 </html>

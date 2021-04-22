@@ -1,0 +1,101 @@
+* {
+    max-width: 100%;
+    box-sizing:border-box;
+}
+body {
+    font-family: arial, helvetica, sans-serif;
+    margin: 0 0 20px;
+}
+header nav {
+    background-color: hsl(187, 100%, 41%);
+}
+header nav ul {
+    margin: 0;
+    padding: 0; 
+    font-size: 0;
+}
+header nav li {
+    list-style: none;
+    display: inline-block;
+    font-size: 16px;
+}
+header nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    background-color: hsl(187, 100%, 30%);
+    border-right: 1px solid white;
+    color: white;
+}
+header nav a:hover {
+    background-color: hsl(187, 100%, 70%);
+    color: black;
+}
+main, header h1 {
+    width: 80%;
+    margin: 20px auto 0;
+}
+.pagination {
+    font-size: 0;
+    margin: 0 0 10px;
+}
+.pagination a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+    background-color: hsl(187, 100%, 25%);
+    font-size: 16px;
+}
+.pagination a:hover {
+    color: white;
+    background-color: hsl(187, 100%, 45%);
+}
+.pagination a.active {
+    background-color: hsl(187, 100%, 65%);
+}
+.container  {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.job, .applicationForm {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.job {
+    border: 1px solid black;
+}
+.job td:nth-child(1), .applicationForm td:nth-child(1) {
+    font-weight: bold; 
+}
+.job td, .applicationForm td {
+    display: block;
+    vertical-align: top;
+}
+.applicationForm input[type="text"] {
+    width: 100%;
+}
+.required, .error {
+    font-style: italic;
+    color: red;
+}
+.container h2 {
+    margin: 0 0 20px;
+}
+
+@media only screen and (min-width: 600px) {
+    .job td{
+        display: table-cell;
+        vertical-align: top;
+    }
+    .job td:nth-child(1) {
+        text-align: right;
+        width: 175px;
+    }
+}
+@media only screen and (min-width: 960px) {
+    .job.single, .applicationForm {
+        width: 50%;
+    }
+}
