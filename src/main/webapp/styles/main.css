@@ -59,17 +59,17 @@ main, header h1 {
     flex-wrap: wrap;
     align-items: stretch;
 }
-.job, .applicationForm {
+.job, .applicationForm, .application {
     padding: 10px;
     margin-bottom: 10px;
 }
-.job {
+.job, .application {
     border: 1px solid black;
 }
-.job td:nth-child(1), .applicationForm td:nth-child(1) {
+.job td:nth-child(1), .applicationForm td:nth-child(1), .application td:nth-child(1) {
     font-weight: bold; 
 }
-.job td, .applicationForm td {
+.job td, .applicationForm td, .application td {
     display: block;
     vertical-align: top;
 }
@@ -84,13 +84,19 @@ main, header h1 {
 .container h2 {
     margin: 0 0 20px;
 }
-
+.applicationSent {
+    font-weight: bold;
+    color: limegreen;
+}
+.application {
+    width: 100%;
+}
 @media only screen and (min-width: 600px) {
-    .job td{
+    .job td, .application td{
         display: table-cell;
         vertical-align: top;
     }
-    .job td:nth-child(1) {
+    .job td:nth-child(1), .application td:nth-child(1) {
         text-align: right;
         width: 175px;
     }

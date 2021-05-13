@@ -78,12 +78,6 @@ public class ApplicationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("username") == null) {
-            response.sendRedirect("login");
-            return;
-        }
-        
         String action = request.getParameter("action");
         if (action == null) {
             action = "list";
@@ -139,6 +133,10 @@ public class ApplicationServlet extends HttpServlet {
     }
     
     private void createApplication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("application");
+        request.setAttribute("applicationSent", false);
+        
         Application application = new Application();
         boolean error = false;
         String firstName = request.getParameter("firstName");
@@ -195,8 +193,10 @@ public class ApplicationServlet extends HttpServlet {
             application.setResumeError("Resume attachment required");
         }
         String jobId = request.getParameter("jobId");
+        String jobTitle = request.getParameter("jobTitle");
         if(!error) {
             application.setJobid(Integer.parseInt(jobId));
+            application.setJobTitle(jobTitle);
             application.setDateTimeSubmitted(Instant.now());
             application.setActive(true);
             int id;
@@ -205,11 +205,11 @@ public class ApplicationServlet extends HttpServlet {
                 application.setId(id);
                 applications.put(id, application);
             }
-            response.sendRedirect("applications");
-        } else {
-            request.setAttribute("application", application);
+            request.setAttribute("applicationSent", true);
             request.getRequestDispatcher("/jobs?id=" + jobId).forward(request, response);
-//        response.sendRedirect("jobs?id=" + jobId);
+        } else {
+            session.setAttribute("application", application);
+            response.sendRedirect("jobs?id=" + jobId);
         }
     }
     

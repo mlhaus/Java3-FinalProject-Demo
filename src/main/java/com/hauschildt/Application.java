@@ -5,6 +5,7 @@
  */
 package com.hauschildt;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 
@@ -12,9 +13,10 @@ import java.time.LocalDate;
  *
  * @author k0519415
  */
-public class Application implements Comparable<Application>{
+public class Application implements Serializable, Comparable<Application>{
     private int id;
     private int jobid;
+    private String jobTitle;
     private Instant dateTimeSubmitted;
     private boolean active;
     private String firstName;
@@ -35,6 +37,7 @@ public class Application implements Comparable<Application>{
     public Application() {
         this.id = 0;
         this.jobid = 0;
+        this.jobTitle = "";
         this.dateTimeSubmitted = Instant.now();
         this.active = false;
         this.firstName = "";
@@ -53,9 +56,10 @@ public class Application implements Comparable<Application>{
         this.startDateError = "";
     }
 
-    public Application(int id, int jobid, Instant dateTimeSubmitted, boolean active, String firstName, String firstNameError, String lastName, String lastNameError, String email, String emailError, String phone, String phoneError, Attachment resumeUpload, String resumeError, double desiredSalary, String salaryError, LocalDate earliestStartDate, String startDateError) {
+    public Application(int id, int jobid, String jobTitle, Instant dateTimeSubmitted, boolean active, String firstName, String firstNameError, String lastName, String lastNameError, String email, String emailError, String phone, String phoneError, Attachment resumeUpload, String resumeError, double desiredSalary, String salaryError, LocalDate earliestStartDate, String startDateError) {
         this.id = id;
         this.jobid = jobid;
+        this.jobTitle = jobTitle;
         this.dateTimeSubmitted = dateTimeSubmitted;
         this.active = active;
         this.firstName = firstName;
@@ -89,6 +93,16 @@ public class Application implements Comparable<Application>{
     public void setJobid(int jobid) {
         this.jobid = jobid;
     }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+    
+    
 
     public Instant getDateTimeSubmitted() {
         return dateTimeSubmitted;
@@ -220,7 +234,7 @@ public class Application implements Comparable<Application>{
 
     @Override
     public String toString() {
-        return "Application{" + "jobid=" + jobid + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+        return "Application{" + "jobTitle=" + jobTitle + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
     }
 
     @Override

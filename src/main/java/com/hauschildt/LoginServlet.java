@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (request.getParameter("logout") != null) {
-            session.invalidate();
+            session.removeAttribute("username");
             response.sendRedirect("jobs");
             return;
         } else if (session.getAttribute("username") != null) {

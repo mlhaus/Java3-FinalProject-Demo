@@ -108,12 +108,12 @@ public class JobServlet extends HttpServlet {
             return;
         } 
         
-        String id = request.getParameter("id");
-        if (id != null) {
-            showJob(request, response);
-        } else {
-            listJobs(request, response);
-        }
+String id = request.getParameter("id");
+if (id != null) {
+    showJob(request, response);
+} else {
+    listJobs(request, response);
+}
     }
     
     private void showJob(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

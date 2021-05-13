@@ -1,15 +1,9 @@
-<%-- 
-    Document   : jobList
-    Created on : Apr 21, 2021, 4:56:39 PM
-    Author     : k0519415
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Medirevv - Career Page</title>
+        <title>Medirevv - Job Page</title>
         <link href="styles/normalize.css" rel="stylesheet">
         <link href="styles/main.css" rel="stylesheet">
     </head>
@@ -19,7 +13,9 @@
                 <ul>
                     <li><a href="<c:url value="/jobs" />">View Jobs</a></li>
                     <li><a href="<c:url value="/applications" />">Applications</a></li>
-                    <li><a href="<c:url value="/login" />">Login</a></li>
+                    <c:if test="${sessionScope.username != null}">
+                        <li><a href="<c:url value="/login?logout" />">Logout</a></li>
+                    </c:if>
                 </ul>
             </nav>
             <h1>Medirevv</h1>
@@ -76,9 +72,13 @@
                 </div>
                 <div class="applicationForm">
                     <h2>Apply for this job</h2>
+                    <c:if test="${applicationSent}">
+                        <p class="applicationSent">Your application has been sent. Thank you!</p>
+                    </c:if>
                     <form action="<c:url value="/applications" />" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="create">
                         <input type="hidden" name="jobId" value="${job.id}">
+                        <input type="hidden" name="jobTitle" value="${job.title}">
                         <table>
                             <tr>
                                 <td><label for="firstName">First Name <span class="required">*</span></label></td>
